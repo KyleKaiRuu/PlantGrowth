@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2431472819561122365}
   - component: {fileID: 2431472819559973181}
   - component: {fileID: -1446786712984537357}
+  - component: {fileID: -8235579757633042655}
   m_Layer: 0
   m_Name: WhiteFlowerSapling
   m_TagString: Untagged
@@ -103,3 +104,21 @@ MonoBehaviour:
     type: 3}
   elderObject: {fileID: 2152915544379310443, guid: cc3c6bc688b737b45ba70b017047eff4,
     type: 3}
+  nearbyPlants: []
+--- !u!114 &-8235579757633042655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2431472819558016153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea34a02c0649f6408c48cb08c7b853a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantSpecies: 
+  plantColor: 
+  isHybrid: 0
+  parents: []
+  hybridsPossible: []

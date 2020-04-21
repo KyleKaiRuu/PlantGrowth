@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5760715072975633001}
   - component: {fileID: 5760715072974681089}
   - component: {fileID: 8933888367672120267}
+  - component: {fileID: -6419230721012189983}
   m_Layer: 0
   m_Name: PinkFlowerSapling
   m_TagString: Untagged
@@ -103,3 +104,21 @@ MonoBehaviour:
     type: 3}
   elderObject: {fileID: 6093276338427987116, guid: c937a4f91c5c7014193daccb0dc479f5,
     type: 3}
+  nearbyPlants: []
+--- !u!114 &-6419230721012189983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760715072972335853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea34a02c0649f6408c48cb08c7b853a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantSpecies: 
+  plantColor: 
+  isHybrid: 0
+  parents: []
+  hybridsPossible: []

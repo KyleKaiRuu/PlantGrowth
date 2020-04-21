@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3567445932606719565}
   - component: {fileID: 3567445932607337995}
   - component: {fileID: 6303152259632832088}
+  - component: {fileID: -8264196654970688158}
   m_Layer: 0
   m_Name: GreyFlowerSapling
   m_TagString: Untagged
@@ -103,3 +104,21 @@ MonoBehaviour:
     type: 3}
   elderObject: {fileID: 4890576465437559557, guid: a162800d746a3d94baafe6befc623517,
     type: 3}
+  nearbyPlants: []
+--- !u!114 &-8264196654970688158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3567445932605607385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea34a02c0649f6408c48cb08c7b853a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantSpecies: 
+  plantColor: 
+  isHybrid: 0
+  parents: []
+  hybridsPossible: []

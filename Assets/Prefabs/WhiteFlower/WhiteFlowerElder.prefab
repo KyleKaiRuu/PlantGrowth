@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2152915544379064417}
   - component: {fileID: 2152915544378306511}
   - component: {fileID: 2152915544377091279}
+  - component: {fileID: -3840262584474009468}
   m_Layer: 0
   m_Name: WhiteFlowerElder
   m_TagString: Untagged
@@ -79,3 +80,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &-3840262584474009468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2152915544379310443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea34a02c0649f6408c48cb08c7b853a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantSpecies: 
+  plantColor: 
+  isHybrid: 0
+  parents: []
+  hybridsPossible: []

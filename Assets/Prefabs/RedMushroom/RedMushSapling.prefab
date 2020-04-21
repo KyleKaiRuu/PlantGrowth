@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2208712018806951940}
   - component: {fileID: 2208712018805904738}
   - component: {fileID: -6790189121387015470}
+  - component: {fileID: 518733313714481153}
   m_Layer: 0
   m_Name: RedMushSapling
   m_TagString: Untagged
@@ -103,3 +104,21 @@ MonoBehaviour:
     type: 3}
   elderObject: {fileID: 3800002262590274122, guid: 086a48a9141401b4fa5bb51a45f5fbb3,
     type: 3}
+  nearbyPlants: []
+--- !u!114 &518733313714481153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2208712018807856128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea34a02c0649f6408c48cb08c7b853a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantSpecies: 
+  plantColor: 
+  isHybrid: 0
+  parents: []
+  hybridsPossible: []
