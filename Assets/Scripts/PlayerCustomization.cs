@@ -86,7 +86,6 @@ public class PlayerCustomization : MonoBehaviour
         }
     }
 
-
     public void UpdateBodyShape(int option)
     {
         switch (option)
