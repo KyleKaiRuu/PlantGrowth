@@ -25,64 +25,13 @@ public class ItemVisual : MonoBehaviour
 
     private void Update()
     {
-        if (!initialized)
+        if(gameObject.transform.GetChild(0).gameObject.TryGetComponent(out Image image))
         {
-            if (invComp != null)
-            {
-                SetItems();
-                initialized = true;
-            }
+            image.sprite = itemSprite;
         }
-        UpdateItems();
-    }
-
-    void SetItems()
-    {
-        if (gameObject.transform.GetChild(0).TryGetComponent(out Image img))
+        if (gameObject.transform.GetChild(1).gameObject.TryGetComponent(out Text text))
         {
-            img.sprite = itemSprite;
-        }
-        if (gameObject.transform.GetChild(1).TryGetComponent(out Text txt))
-        {
-            txt.text = quantity.ToString();
-        }
-    }
-
-    void UpdateItems()
-    {
-        if (quantity == 0)
-        {
-            if (gameObject.transform.GetChild(0).gameObject.TryGetComponent(out Image img))
-            {
-                img.color = new Color(0, 0, 0, 0);
-            }
-            else
-            {
-                if (gameObject.transform.GetChild(0).gameObject.TryGetComponent(out Image im))
-                {
-                    img.color = Color.white;
-                }
-            }
-        }
-
-        InventoryManager.InvItem tempInvItem = invComp.inventory[itemNum];
-
-        itemSprite = tempInvItem.sprite;
-        itemName = tempInvItem.itemName;
-        itemDescription = tempInvItem.itemDescription;
-        quantity = tempInvItem.quantity;
-        itemId = tempInvItem.itemId;
-
-        if (tempInvItem.inInventory)
-        {
-            if (gameObject.transform.GetChild(0).TryGetComponent(out Image img))
-            {
-                img.sprite = itemSprite;
-            }
-            if (gameObject.transform.GetChild(1).TryGetComponent(out Text txt))
-            {
-                txt.text = quantity.ToString();
-            }
+            text.text = quantity.ToString();
         }
     }
 }

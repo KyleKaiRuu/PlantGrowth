@@ -59,6 +59,13 @@ public class InventoryManager : MonoBehaviour
     public ItemData testItemToRemove;
     public int testQuantityRemove;
 
+    public ItemData testSecondItemToAdd;
+    public int testSecondQuantityToAdd;
+    public ItemData testSecondItemToRemove;
+    public int testSecondQuantityToRemove;
+
+    public GameObject canvas;
+
     private void Awake()
     {
         inventory = new List<InvItem>();
@@ -76,6 +83,14 @@ public class InventoryManager : MonoBehaviour
             {
                 RemoveItem(testItemToRemove, testQuantityRemove);
             }
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                AddItem(testSecondItemToAdd, testSecondQuantityToAdd);
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                RemoveItem(testSecondItemToRemove, testSecondQuantityToRemove);
+            }
         }
     }
 
@@ -88,12 +103,12 @@ public class InventoryManager : MonoBehaviour
         if (!isInInventory)
         {
             inventory.Add(new InvItem(item.itemId, item.itemName, item.itemDescription, quantityToAdd, item.sprite, item.usage, item.useAmount, item.secondaryUsage, item.secondaryUseAmount, true));
-            UpdateVisual(item, true);
+            UpdateVisual(item, true, false);
         }
         else
         {
             inventory[indexToUse].quantity += quantityToAdd;
-            UpdateVisual(item, true);
+            UpdateVisual(item, true, true);
         }
     }
 
@@ -118,15 +133,13 @@ public class InventoryManager : MonoBehaviour
                     {
                         inventory.RemoveAt(indexToUse);
                         Debug.Log("Item Remmoved");
-                        UpdateVisual(item, false);
+                        UpdateVisual(item, false, false);
                         return;
                     }
                     else if (invItem.quantity >= quantityToRemove)
                     {
                         inventory[indexToUse].quantity -= quantityToRemove;
-                        //inventory[indexToUse] = new InvItem(item.itemId, item.itemName, item.itemDescription, inventory[indexToUse].quantity - quantityToRemove, item.sprite);
-                        indexToUse = -1;
-                        UpdateVisual(item, true);
+                        UpdateVisual(item, false, true);
                         Debug.Log("Item Quantity Removed");
                         return;
                     }
@@ -152,9 +165,10 @@ public class InventoryManager : MonoBehaviour
                     return true;
                 }
             }
-            if (inventory[i].itemId == -1)
+
+            if (i >= inventory.Count - 1)
             {
-                indexToUse = i;
+                indexToUse = i + 1;
                 return false;
             }
 
@@ -169,27 +183,22 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
-    public void UpdateVisual(ItemData item, bool isAdding)
+    public void UpdateVisual(ItemData item, bool isAdding, bool isChangingQuantity)
     {
-        if (isAdding)
+        if (isAdding && !isChangingQuantity)
         {
-            if (itemVisuals.Count > 0)
-            {
-                foreach (ItemVisual itemVisual in itemVisuals)
-                {
-                    if (itemVisual.itemId == item.itemId)
-                    {
-                        return;
-                    }
-
-                }
-            }
 
             //Add new entry.
-            GameObject cur = Instantiate(template, gameObject.transform);
-            if (cur.transform.GetChild(0).gameObject.TryGetComponent(out ItemVisual _iv))
+            GameObject cur = Instantiate(template, canvas.transform);
+            if (cur.gameObject.TryGetComponent(out ItemVisual _iv))
             {
                 _iv.itemNum = curNum;
+                _iv.itemSprite = item.sprite;
+                _iv.itemDescription = item.itemDescription;
+                _iv.quantity = inventory[indexToUse].quantity;
+                _iv.itemId = item.itemId;
+                itemVisuals.Add(_iv);
+
             }
             cur.name = "Entry " + curNum.ToString();
             curNum++;
@@ -202,17 +211,32 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
-        else
+        else if (!isAdding && !isChangingQuantity)
         {
             //Destroy the one that's gone
-            foreach(ItemVisual itemVisual in itemVisuals)
+            foreach (ItemVisual itemVisual in itemVisuals)
             {
                 if (itemVisual.itemId == item.itemId)
                 {
+                    itemVisuals.Remove(itemVisual);
                     Destroy(itemVisual.gameObject);
                     curNum--;
+                    return;
                 }
             }
+        }
+        else
+        {
+            UpdateQuantity();
+        }
+    }
+
+    void UpdateQuantity()
+    {
+        GameObject cur = itemVisuals[indexToUse].gameObject;
+        if (cur.gameObject.TryGetComponent(out ItemVisual _iv))
+        {
+            _iv.quantity = inventory[indexToUse].quantity;
         }
     }
 }

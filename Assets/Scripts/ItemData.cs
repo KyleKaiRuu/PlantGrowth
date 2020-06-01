@@ -6,6 +6,7 @@ public class ItemData : MonoBehaviour
 {
     public int itemId;
     public string itemName;
+    [TextArea (3,3)]
     public string itemDescription;
     public Sprite sprite;
     public InventoryManager.InvItem.Usage usage;
