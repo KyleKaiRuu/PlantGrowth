@@ -14,6 +14,6 @@ public class CraftingRecipe : MonoBehaviour
 
     public List<Ingredients> ingredients;
 
+    //This would always be the itemData script attached to this same gameobject
     public ItemData itemToCraft;
-
 }

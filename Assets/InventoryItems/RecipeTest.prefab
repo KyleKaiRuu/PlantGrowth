@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &681666483751316442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 681666483751316436}
+  - component: {fileID: 681666483751316437}
+  - component: {fileID: 681666483751316439}
+  m_Layer: 0
+  m_Name: RecipeTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &681666483751316436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681666483751316442}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.030029, y: -1.4476318, z: -5.240431}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &681666483751316437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681666483751316442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3483a211ac82ce948976d257b3f8caaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredients:
+  - itemNeeded: {fileID: 8110935490267423364, guid: a40fde52d602559438222e29dc0b264c,
+      type: 3}
+    quantityNeeded: 1
+  - itemNeeded: {fileID: 5461614183217422122, guid: b140b02cbde977044b802b7688109975,
+      type: 3}
+    quantityNeeded: 3
+  itemToCraft: {fileID: 681666483751316439}
+--- !u!114 &681666483751316439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681666483751316442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570f3d6787c8bb4c8389c7682e91b39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 2
+  itemName: HealthPotion
+  itemDescription: This heals stuff
+  sprite: {fileID: 21300000, guid: c055866b695f89849907cf81fd26a72c, type: 3}
+  usage: 2
+  useAmount: 10
+  secondaryUsage: 0
+  secondaryUseAmount: 0

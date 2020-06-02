@@ -46,4 +46,8 @@ MonoBehaviour:
   itemId: 0
   itemName: TestItem
   itemDescription: This item is a test
-  sprite: {fileID: -4692289691582264659, guid: a7fb0d2a1a751e9458f7fc3092985a01, type: 3}
+  sprite: {fileID: 4530433918361379743, guid: 99bd396e3d9888c4298623d8f1eb6f29, type: 3}
+  usage: 0
+  useAmount: 0
+  secondaryUsage: 0
+  secondaryUseAmount: 0

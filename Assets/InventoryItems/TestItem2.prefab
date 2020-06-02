@@ -46,7 +46,7 @@ MonoBehaviour:
   itemId: 1
   itemName: DoubleTest
   itemDescription: This item is a second test
-  sprite: {fileID: 6257758880184856086, guid: a7fb0d2a1a751e9458f7fc3092985a01, type: 3}
+  sprite: {fileID: 5282195276602034445, guid: dbc54186adc39ce4b81c47d42458edb3, type: 3}
   usage: 0
   useAmount: 0
   secondaryUsage: 0
