@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using UnityEditor;
 using UnityEngine;
 
@@ -253,6 +254,7 @@ public class InventoryManager : MonoBehaviour
         {
             content += inventory[i].itemId + "-" + inventory[i].quantity.ToString() + "_";
         }
+        content = EncryptDecrypt(content);
         //Add Text
         File.WriteAllText(path, content);
     }
@@ -260,27 +262,58 @@ public class InventoryManager : MonoBehaviour
     public void LoadInventory()
     {
         string path = Application.dataPath + "/inventory.txt";
-        string content = File.ReadAllText(path);
-        string[] splitContent = content.Split('_');
-
-        for (int i = 0; i < splitContent.Length; i++)
+        if (File.Exists(Application.dataPath + "/inventory.txt"))
         {
-            Debug.Log(splitContent.Length);
-            foreach (ItemData itemData in itemsAvailable)
+            string content = File.ReadAllText(path);
+            content = EncryptDecrypt(content);
+            string[] splitContent = content.Split('_');
+
+            if (inventory.Count > 0)
             {
-                Debug.Log(itemsAvailable.Count);
-                string[] splintSecond = splitContent[i].ToString().Split('-');
-                if (splintSecond[0].ToString() == itemData.itemId.ToString())
+                for (int i = inventory.Count - 1; i > -1; i--)
                 {
-                    AddItem(itemData, Convert.ToInt16(splintSecond[1].ToString()));
-                    Debug.Log("Item added?");
+                    inventory.RemoveAt(i);
+                    ItemVisual temp = itemVisuals[i];
+                    itemVisuals.Remove(temp);
+                    Destroy(temp.gameObject);
                 }
             }
-            //Find the correct ItemData needed,
-            //Set the inventory variables as needed with inventory[i]
+
+            for (int i = 0; i < splitContent.Length; i++)
+            {
+                Debug.Log(splitContent.Length);
+                foreach (ItemData itemData in itemsAvailable)
+                {
+                    Debug.Log(itemsAvailable.Count);
+                    string[] splintSecond = splitContent[i].ToString().Split('-');
+                    if (splintSecond[0].ToString() == itemData.itemId.ToString())
+                    {
+                        AddItem(itemData, Convert.ToInt16(splintSecond[1].ToString()));
+                        Debug.Log("Item added?");
+                    }
+                }
+            }
+            Debug.Log(content);
         }
-        Debug.Log(content);
-        
+        else
+        {
+            Debug.LogWarning("Inventory file does not exist, please save the inventory before trying to load.");
+        }
+    }
+
+    public static string EncryptDecrypt(string textToEncrypt)
+    {
+        int key = 129;
+        StringBuilder inSb = new StringBuilder(textToEncrypt);
+        StringBuilder outSb = new StringBuilder(textToEncrypt.Length);
+        char c;
+        for (int i = 0; i < textToEncrypt.Length; i++)
+        {
+            c = inSb[i];
+            c = (char)(c ^ key);
+            outSb.Append(c);
+        }
+        return outSb.ToString();
     }
 }
 

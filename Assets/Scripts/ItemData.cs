@@ -13,4 +13,5 @@ public class ItemData : MonoBehaviour
     public int useAmount;
     public InventoryManager.InvItem.Usage secondaryUsage;
     public int secondaryUseAmount;
+    public int cost;
 }

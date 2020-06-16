@@ -12,6 +12,13 @@ public class Shop : MonoBehaviour
         public ItemData item;
         public int cost;
         public int quantity;
+
+        public ItemForSale(ItemData item, int cost, int quantity)
+        {
+            this.item = item;
+            this.cost = cost;
+            this.quantity = quantity;
+        }
     }
 
     public List<ItemForSale> itemsForSale;
@@ -26,7 +33,10 @@ public class Shop : MonoBehaviour
 
     private void Awake()
     {
-        DisplayShop();
+        for (int i = 0; i < itemsForSale.Count; i++)
+        {
+            DisplayShop(i);
+        }
     }
 
     private void Update()
@@ -58,48 +68,46 @@ public class Shop : MonoBehaviour
         }
     }
 
-    private void DisplayShop()
+    private void DisplayShop(int i)
     {
-        for (int i = 0; i < itemsForSale.Count; i++)
+        GameObject temp = Instantiate(shopItemDisplay, new Vector3(0, 0, 0), Quaternion.identity, gameObject.transform);
+        itemObjects.Add(temp);
+        if (temp.transform.GetChild(0).gameObject.TryGetComponent(out Text itemNameText))
         {
-            GameObject temp = Instantiate(shopItemDisplay, new Vector3(0, 0, 0), Quaternion.identity, gameObject.transform);
-            itemObjects.Add(temp);
-            if (temp.transform.GetChild(0).gameObject.TryGetComponent(out Text itemNameText))
-            {
-                itemNameText.text = itemsForSale[i].item.itemName;
-            }
-            else
-            {
-                DebugWarningTryGetComponent("Item name text", i.ToString());
-            }
-
-            if (temp.transform.GetChild(1).gameObject.TryGetComponent(out Text quantityText))
-            {
-                quantityText.text = "Quantity Available: " + itemsForSale[i].quantity.ToString();
-            }
-            else
-            {
-                DebugWarningTryGetComponent("Item quantity text", i.ToString());
-            }
-
-            if (temp.transform.GetChild(2).gameObject.TryGetComponent(out Text costText))
-            {
-                costText.text = "Cost: " + itemsForSale[i].cost.ToString();
-            }
-            else
-            {
-                DebugWarningTryGetComponent("Item cost text", i.ToString());
-            }
-
-            if (temp.transform.GetChild(3).gameObject.TryGetComponent(out Image itemSprite))
-            {
-                itemSprite.sprite = itemsForSale[i].item.sprite;
-            }
-            else
-            {
-                DebugWarningTryGetComponent("Item sprite", i.ToString());
-            }
+            itemNameText.text = itemsForSale[i].item.itemName;
         }
+        else
+        {
+            DebugWarningTryGetComponent("Item name text", i.ToString());
+        }
+
+        if (temp.transform.GetChild(1).gameObject.TryGetComponent(out Text quantityText))
+        {
+            quantityText.text = "Quantity Available: " + itemsForSale[i].quantity.ToString();
+        }
+        else
+        {
+            DebugWarningTryGetComponent("Item quantity text", i.ToString());
+        }
+
+        if (temp.transform.GetChild(2).gameObject.TryGetComponent(out Text costText))
+        {
+            costText.text = "Cost: " + itemsForSale[i].cost.ToString();
+        }
+        else
+        {
+            DebugWarningTryGetComponent("Item cost text", i.ToString());
+        }
+
+        if (temp.transform.GetChild(3).gameObject.TryGetComponent(out Image itemSprite))
+        {
+            itemSprite.sprite = itemsForSale[i].item.sprite;
+        }
+        else
+        {
+            DebugWarningTryGetComponent("Item sprite", i.ToString());
+        }
+        
     }
 
     public void BuyItem(Button buttonClicked)
@@ -130,6 +138,49 @@ public class Shop : MonoBehaviour
             else
             {
                 DebugWarningTryGetComponent("Item name ", "get item for cash.");
+            }
+        }
+    }
+
+    public void SellItem(Button buttonClicked)
+    {
+        GameObject temp = buttonClicked.gameObject.transform.parent.gameObject;
+
+        for (int i = 0; i < inventory.inventory.Count; i++)
+        {
+            if (temp.TryGetComponent(out ItemVisual itemVisual))
+            {
+                if (inventory.inventory[i].itemId == itemVisual.itemId)
+                {
+                    //Find itemData
+                    for (int j = 0; j < inventory.itemsAvailable.Count; j++)
+                    {
+                        if (inventory.inventory[i].itemId == inventory.itemsAvailable[j].itemId)
+                        {
+                            //Find shop item
+                            for (int k = 0; k < itemsForSale.Count; k++)
+                            {
+                                if (itemsForSale[k].item.itemId == inventory.inventory[i].itemId)
+                                {
+                                    itemsForSale[k].quantity += 1;
+                                    playerCash.cash += itemsForSale[k].cost / 2;
+                                    inventory.RemoveItem(inventory.itemsAvailable[j], 1);
+
+                                    UpdateDisplay();
+                                    return;
+                                }
+                            }
+                            //If item not found
+                            itemsForSale.Add(new ItemForSale(inventory.itemsAvailable[j], inventory.itemsAvailable[j].cost, 1));
+                            inventory.RemoveItem(inventory.itemsAvailable[j], 1);
+
+                            GameObject tempShopDisplay = Instantiate(shopItemDisplay, new Vector3(0, 0, 0), Quaternion.identity, gameObject.transform);
+                            itemObjects.Add(tempShopDisplay);
+                            DisplayShop(itemsForSale.Count - 1);
+                            return;
+                        }
+                    }
+                }
             }
         }
     }

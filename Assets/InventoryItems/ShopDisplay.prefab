@@ -323,6 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopScript: {fileID: 0}
+  listener: BuyOnClick
 --- !u!1 &7613944611137188569
 GameObject:
   m_ObjectHideFlags: 0
