@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using UnityEditor;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    public List<ItemData> itemsAvailable;
+
     public GameObject template;
 
     public List<InvItem> inventory;
@@ -20,7 +25,6 @@ public class InventoryManager : MonoBehaviour
         public int useAmount;
         public Usage secondaryUsage;
         public int secondaryUseAmount;
-        public bool inInventory;
 
         public enum Usage
         {
@@ -31,7 +35,7 @@ public class InventoryManager : MonoBehaviour
         }
         //Enum for use, would reference UseItem script in some way with Enums deciding effect and an int for amount
 
-        public InvItem(int itemId, string itemName, string itemDescription, int quantity, Sprite sprite, Usage usage, int useAmount, Usage secondaryUsage, int secondaryUseAmount, bool inInventory)
+        public InvItem(int itemId, string itemName, string itemDescription, int quantity, Sprite sprite, Usage usage, int useAmount, Usage secondaryUsage, int secondaryUseAmount)
         {
             this.itemId = itemId;
             this.itemName = itemName;
@@ -42,7 +46,6 @@ public class InventoryManager : MonoBehaviour
             this.useAmount = useAmount;
             this.secondaryUsage = secondaryUsage;
             this.secondaryUseAmount = secondaryUseAmount;
-            this.inInventory = inInventory;
         }
     }
 
@@ -102,7 +105,7 @@ public class InventoryManager : MonoBehaviour
 
         if (!isInInventory)
         {
-            inventory.Add(new InvItem(item.itemId, item.itemName, item.itemDescription, quantityToAdd, item.sprite, item.usage, item.useAmount, item.secondaryUsage, item.secondaryUseAmount, true));
+            inventory.Add(new InvItem(item.itemId, item.itemName, item.itemDescription, quantityToAdd, item.sprite, item.usage, item.useAmount, item.secondaryUsage, item.secondaryUseAmount));
             UpdateVisual(item, true, false);
         }
         else
@@ -239,4 +242,46 @@ public class InventoryManager : MonoBehaviour
             _iv.quantity = inventory[indexToUse].quantity;
         }
     }
+
+    public void SaveInventory()
+    {
+        //Path
+        string path = Application.dataPath + "/inventory.txt";
+        //Content
+        string content = "";
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            content += inventory[i].itemId + "-" + inventory[i].quantity.ToString() + "_";
+        }
+        //Add Text
+        File.WriteAllText(path, content);
+    }
+
+    public void LoadInventory()
+    {
+        string path = Application.dataPath + "/inventory.txt";
+        string content = File.ReadAllText(path);
+        string[] splitContent = content.Split('_');
+
+        for (int i = 0; i < splitContent.Length; i++)
+        {
+            Debug.Log(splitContent.Length);
+            foreach (ItemData itemData in itemsAvailable)
+            {
+                Debug.Log(itemsAvailable.Count);
+                string[] splintSecond = splitContent[i].ToString().Split('-');
+                if (splintSecond[0].ToString() == itemData.itemId.ToString())
+                {
+                    AddItem(itemData, Convert.ToInt16(splintSecond[1].ToString()));
+                    Debug.Log("Item added?");
+                }
+            }
+            //Find the correct ItemData needed,
+            //Set the inventory variables as needed with inventory[i]
+        }
+        Debug.Log(content);
+        
+    }
 }
+
+
