@@ -73,6 +73,7 @@ public class InventoryManager : MonoBehaviour
     private void Awake()
     {
         inventory = new List<InvItem>();
+        LoadInventory();
     }
 
     private void Update()
@@ -242,6 +243,11 @@ public class InventoryManager : MonoBehaviour
         {
             _iv.quantity = inventory[indexToUse].quantity;
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveInventory();
     }
 
     public void SaveInventory()
